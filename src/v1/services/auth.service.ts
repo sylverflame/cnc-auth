@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 
 export const authService = {
   async registerUser(userData: RegisterUserData) {
-    const { name, username, password } = userData;
+    const { name, username, password, country } = userData;
     // Check for duplicate username
     const result = await userRepository.getUser(username);
     if (result.length) {
@@ -26,6 +26,7 @@ export const authService = {
       name,
       username,
       password: hashedPassword,
+      country: country,
       uid: uuid,
     };
 

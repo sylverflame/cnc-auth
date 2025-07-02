@@ -1,7 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../..";
 import { users } from "../db/schema";
-import { RegisterUserData } from "../utils/schemas";
 import { RegisterUser } from "../utils/types";
 
 export const userRepository = {
