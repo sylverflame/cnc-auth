@@ -1,11 +1,12 @@
-import { ErrorCodes } from "@sylvr/utils";
-import { userRepository } from "../repositories/user.repository";
 import {
   BadRequestError,
+  ErrorCodes,
   ForbiddenError,
   InternalServerError,
   NotFoundError,
-} from "../utils/classes/Errors";
+} from "@sylvr/utils";
+import { userRepository } from "../repositories/user.repository";
+
 import { LoginUserData, RegisterUserData } from "../utils/schemas";
 import { Token } from "../utils/types";
 import bcrypt from "bcrypt";
