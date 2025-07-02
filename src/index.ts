@@ -6,8 +6,10 @@ import {
   invalidRouteHandler,
 } from "./v1/middlewares/errorHandlers";
 import authRouter from "./v1/routes/auth.router";
-
+import { drizzle } from "drizzle-orm/node-postgres";
 dotenv.config();
+
+export const db = drizzle(process.env.DATABASE_URL!);
 
 const PORT = process.env.PORT;
 const app = express();

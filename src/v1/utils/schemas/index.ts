@@ -5,3 +5,5 @@ export const RegisterUserPayloadSchema = z.object({
   username: z.string(),
   password: z.string(),
 });
+
+export type RegisterUser = z.infer<typeof RegisterUserPayloadSchema>;

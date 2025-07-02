@@ -2,15 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import { BadRequestError } from "../utils/classes/Errors";
 import { ErrorCodes } from "../utils/types";
 import { RegisterUserPayloadSchema } from "../utils/schemas";
+import { authService } from "../services/auth.service";
 
 const authController = {
-  registerUser(req: Request, res: Response, next: NextFunction) {
+  async registerUser(req: Request, res: Response, next: NextFunction) {
     try {
       if (!req.body) {
         throw new BadRequestError(ErrorCodes.ERR_003);
       }
 
-      const parsedPayload = RegisterUserPayloadSchema.parse(req.body);
+      const parsedData = RegisterUserPayloadSchema.parse(req.body); // Will throw a ZodError in case of invalid data
+      await authService.registerUser(parsedData);
+      res.json({ message: "Success" });
     } catch (error) {
       next(error);
     }
