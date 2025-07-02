@@ -1,5 +1,5 @@
 {
-  "id": "f232a93b-86a7-496b-a31d-074bb108d480",
+  "id": "af8f92b6-8838-4c4b-9846-e8f71f692f7e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -45,6 +45,12 @@
         },
         "password": {
           "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "name": "country",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true

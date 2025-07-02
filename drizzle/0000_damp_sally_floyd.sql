@@ -4,5 +4,6 @@ CREATE TABLE "users" (
 	"name" varchar(255) NOT NULL,
 	"username" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
+	"country" varchar(255) NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
