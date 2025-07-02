@@ -1,9 +1,15 @@
 import { z } from "zod/v4";
 
 export const RegisterUserPayloadSchema = z.object({
-  name: z.string(),
+  name: z.string().min(3),
+  username: z.string().min(3),
+  password: z.string().min(5),
+});
+
+export const LoginUserPayloadSchema = z.object({
   username: z.string(),
   password: z.string(),
 });
 
-export type RegisterUser = z.infer<typeof RegisterUserPayloadSchema>;
+export type RegisterUserData = z.infer<typeof RegisterUserPayloadSchema>;
+export type LoginUserData = z.infer<typeof LoginUserPayloadSchema>;

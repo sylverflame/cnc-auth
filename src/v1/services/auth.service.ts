@@ -1,15 +1,21 @@
 import { userRepository } from "../repositories/user.repository";
-import { BadRequestError } from "../utils/classes/Errors";
-import { RegisterUser } from "../utils/schemas";
-import { ErrorCodes } from "../utils/types";
+import {
+  BadRequestError,
+  ForbiddenError,
+  InternalServerError,
+  NotFoundError,
+} from "../utils/classes/Errors";
+import { LoginUserData, RegisterUserData } from "../utils/schemas";
+import { ErrorCodes, Token } from "../utils/types";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const authService = {
-  async registerUser(userData: RegisterUser) {
+  async registerUser(userData: RegisterUserData) {
     const { username, password } = userData;
     // Check for duplicate username
-    const result = await userRepository.getUserName(username);
-    if (result.length !== 0) {
+    const result = await userRepository.getUser(username);
+    if (result.length) {
       throw new BadRequestError(ErrorCodes.ERR_006);
     }
     // Hash the password
@@ -17,5 +23,27 @@ export const authService = {
     userData.password = hashedPassword;
 
     await userRepository.createUser(userData);
+  },
+  async loginUser(userData: LoginUserData): Promise<Token> {
+    const { username, password } = userData;
+    const result = await userRepository.getUser(username);
+    if (!result || !result.length) {
+      throw new NotFoundError(ErrorCodes.ERR_007);
+    }
+    const dbPassword = result[0].password;
+    const isPasswordValid = await bcrypt.compare(password, dbPassword);
+    if (!isPasswordValid) {
+      throw new ForbiddenError(ErrorCodes.ERR_002);
+    }
+    const secretKey = process.env.JWT_SECRET;
+    if (!secretKey) {
+      throw new InternalServerError(ErrorCodes.ERR_008);
+    }
+
+    const token = jwt.sign({ username }, secretKey, {
+      expiresIn: "1h",
+    });
+
+    return token;
   },
 };

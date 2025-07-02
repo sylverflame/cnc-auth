@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import {
   BadRequestError,
   ForbiddenError,
+  InternalServerError,
   NotFoundError,
   UnauthorizedError,
 } from "../utils/classes/Errors";
@@ -51,6 +52,10 @@ export const globalErrorHandler = (
 
   if (error instanceof NotFoundError) {
     res.status(Status.NotFound).json({ error: error.message });
+    return;
+  }
+  if (error instanceof InternalServerError) {
+    res.status(Status.InternalServerError).json({ error: error.message });
     return;
   }
 
