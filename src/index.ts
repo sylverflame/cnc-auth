@@ -1,14 +1,10 @@
 import cors from "cors";
-import dotenv from "dotenv";
+import "dotenv/config";
 import express, { json } from "express";
-import {
-  globalErrorHandler,
-  invalidRouteHandler,
-} from "./v1/middlewares/errorHandlers";
 import authRouter from "./v1/routes/auth.router";
 import { drizzle } from "drizzle-orm/node-postgres";
 import helmet from "helmet";
-dotenv.config();
+import { globalErrorHandler, invalidRouteHandler } from "@sylvr/utils";
 
 export const db = drizzle(process.env.DATABASE_URL!);
 

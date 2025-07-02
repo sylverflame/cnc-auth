@@ -4,7 +4,7 @@ import {
   LoginUserPayloadSchema,
   RegisterUserPayloadSchema,
 } from "../utils/schemas";
-import { Status, SuccessCodes } from "../utils/types";
+import { Status, SuccessCodes } from "@sylvr/utils";
 
 const authController = {
   async registerUser(req: Request, res: Response, next: NextFunction) {

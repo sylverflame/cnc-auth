@@ -1,3 +1,4 @@
+import { ErrorCodes } from "@sylvr/utils";
 import { userRepository } from "../repositories/user.repository";
 import {
   BadRequestError,
@@ -6,7 +7,7 @@ import {
   NotFoundError,
 } from "../utils/classes/Errors";
 import { LoginUserData, RegisterUserData } from "../utils/schemas";
-import { ErrorCodes, Token } from "../utils/types";
+import { Token } from "../utils/types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
