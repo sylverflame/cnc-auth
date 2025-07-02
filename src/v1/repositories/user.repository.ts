@@ -1,23 +1,29 @@
+import { eq } from "drizzle-orm";
 import { db } from "../..";
-import { usersTable } from "../db/schema";
+import { users } from "../db/schema";
 import { RegisterUser } from "../utils/schemas";
 
 export const userRepository = {
-  async createUser(user: RegisterUser) {
-    await db.insert(usersTable).values(user);
+  createUser(user: RegisterUser) {
+    // IMP: Always returning from these functions so that the querying can be awaited at the service layer
+    return db.insert(users).values(user);
   },
-  async getAllUsernames() {
-    await db
-      .select({
-        username: usersTable.username,
-      })
-      .from(usersTable);
+  getAllUsers() {
+    return db.select().from(users);
   },
-  async getUserName() {
-    await db
+  getAllUsernames() {
+    return db
       .select({
-        username: usersTable.username,
+        username: users.username,
       })
-      .from(usersTable);
+      .from(users);
+  },
+  getUserName(username: string) {
+    return db
+      .select({
+        username: users.username,
+      })
+      .from(users)
+      .where(eq(users.username, username));
   },
 };

@@ -14,8 +14,9 @@ export enum ErrorCodes {
   ERR_003 = "ERR_003: No payload received",
   ERR_004 = "ERR_004: Sorry can't find that!",
   ERR_005 = "ERR_005: Something went wrong!",
+  ERR_006 = "ERR_006: User already exists",
 }
 
 export enum SuccessCodes {
-  SUCCESS_001 = "SUCCESS_001: User created successfully",
+  SUCCESS_001 = "SUCCESS_001: User registered successfully",
 }
