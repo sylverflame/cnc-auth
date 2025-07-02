@@ -20,6 +20,7 @@ export const authService = {
     }
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
+    // Generate UUID
     const uuid = crypto.randomUUID();
     const updatedUserData = {
       name,
