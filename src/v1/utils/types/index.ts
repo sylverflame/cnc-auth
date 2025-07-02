@@ -1,5 +1,12 @@
 export type Token = string;
 
+export type RegisterUser = {
+  name: string;
+  username: string;
+  password: string;
+  uid: string;
+};
+
 export enum Status {
   Success = 200,
   Created = 201,

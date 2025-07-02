@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 
 export const authService = {
   async registerUser(userData: RegisterUserData) {
-    const { username, password } = userData;
+    const { name, username, password } = userData;
     // Check for duplicate username
     const result = await userRepository.getUser(username);
     if (result.length) {
@@ -20,9 +20,15 @@ export const authService = {
     }
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    userData.password = hashedPassword;
+    const uuid = crypto.randomUUID();
+    const updatedUserData = {
+      name,
+      username,
+      password: hashedPassword,
+      uid: uuid,
+    };
 
-    await userRepository.createUser(userData);
+    await userRepository.createUser(updatedUserData);
   },
   async loginUser(userData: LoginUserData): Promise<Token> {
     const { username, password } = userData;
